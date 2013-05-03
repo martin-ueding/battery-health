@@ -39,6 +39,7 @@ int main() {
 	std::cout << "Current Charge	" << charge << std::endl;
 	std::cout << "Possible Charge	" << max_charge << std::endl;
 	std::cout << "Time Left	" << time_left << std::endl;
+	std::cout << "Power Now	" << power_now << std::endl;
 	std::cout << "Time Until	" << time_until << std::endl;
 
 	return 0;
