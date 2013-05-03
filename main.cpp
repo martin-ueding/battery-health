@@ -12,10 +12,6 @@ int main() {
 
 	int time = std::time(NULL);
 
-	double charge;
-	double max_charge;
-	double time_left;
-
 	std::ifstream in;
 
 	in.open("/sys/class/power_supply/BAT0/energy_now");
@@ -34,13 +30,16 @@ int main() {
 	in >> power_now;
 	in.close();
 
-	charge = (double) energy_now / energy_full;
-	max_charge = (double) energy_full / energy_full_design;
-	time_left = (double) energy_now / power_now;
+	double charge = (double) energy_now / energy_full;
+	double max_charge = (double) energy_full / energy_full_design;
+	double time_left = (double) energy_now / power_now;
+	int time_until = time + 3600 * time_left;
 
+	std::cout << "Time		" << time << std::endl;
 	std::cout << "Current Charge	" << charge << std::endl;
 	std::cout << "Possible Charge	" << max_charge << std::endl;
 	std::cout << "Time Left	" << time_left << std::endl;
+	std::cout << "Time Until	" << time_until << std::endl;
 
 	return 0;
 }
