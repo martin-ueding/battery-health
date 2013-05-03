@@ -1,13 +1,16 @@
 // Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
-#include <iostream>
+#include <ctime>
 #include <fstream>
+#include <iostream>
 
 int main() {
 	int energy_now;
 	int energy_full;
 	int energy_full_design;
 	int power_now;
+
+	int time = std::time(NULL);
 
 	double charge;
 	double max_charge;
@@ -37,7 +40,7 @@ int main() {
 
 	std::cout << "Current Charge	" << charge << std::endl;
 	std::cout << "Possible Charge	" << max_charge << std::endl;
-	std::cout << "Time Left		" << time_left << std::endl;
+	std::cout << "Time Left	" << time_left << std::endl;
 
 	return 0;
 }
