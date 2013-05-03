@@ -12,6 +12,10 @@ int main() {
 
 	int time = std::time(NULL);
 
+	// TODO Create folder automatically.
+
+	std::string foldername = "~/.local/share/battery-health";
+
 	std::ifstream in;
 
 	in.open("/sys/class/power_supply/BAT0/energy_now");
