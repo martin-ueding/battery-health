@@ -17,11 +17,13 @@ def main():
     if os.path.isfile(charge_file):
         data = np.genfromtxt(charge_file);
 
-        pl.plot(data[:,0], data[:,1])
+        pl.plot(data[:,0], data[:,1], label=u"Current charge")
+        pl.plot(data[:,0], data[:,2], label=u"Maximum charge")
         pl.title(u"Charge")
         pl.xlabel(u"Time")
         pl.ylabel(u"Charge Ratio")
         pl.grid(True)
+        pl.legend(loc="best")
         pl.savefig("Charge.pdf")
         pl.clf()
 
