@@ -14,7 +14,7 @@ int main() {
 
 	// TODO Create folder automatically.
 
-	std::string foldername = "~/.local/share/battery-health";
+	std::string foldername = std::string(getenv("HOME")) + std::string("/.local/share/battery-health");
 
 	std::ifstream in;
 
@@ -39,12 +39,23 @@ int main() {
 	double time_left = (double) energy_now / power_now;
 	int time_until = time + 3600 * time_left;
 
-	std::cout << "Time		" << time << std::endl;
-	std::cout << "Current Charge	" << charge << std::endl;
-	std::cout << "Possible Charge	" << max_charge << std::endl;
-	std::cout << "Time Left	" << time_left << " h" << std::endl;
-	std::cout << "Power Now	" << power_now / 1000000. << " W" << std::endl;
-	std::cout << "Time Until	" << time_until << std::endl;
+	std::ofstream out;
+
+	out.open(foldername+"/charge.txt", std::fstream::app);
+	out << time << "\t" << charge << "\t" << max_charge << std::endl;
+	out.close();
+
+	out.open(foldername+"/timeleft.txt", std::fstream::app);
+	out << time << "\t" << time_left << std::endl;
+	out.close();
+
+	out.open(foldername+"/powernow.txt", std::fstream::app);
+	out << time << "\t" << power_now / 1000000. << std::endl;
+	out.close();
+
+	out.open(foldername+"/timeuntil.txt", std::fstream::app);
+	out << time << "\t" << time_until << std::endl;
+	out.close();
 
 	return 0;
 }
