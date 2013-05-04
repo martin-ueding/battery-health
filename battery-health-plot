@@ -1,0 +1,81 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+import matplotlib.pyplot as pl
+import numpy as np
+import os
+
+__docformat__ = "restructuredtext en"
+
+def main():
+    options = _parse_args()
+
+    charge_file = os.path.expanduser("~/.local/share/battery-health/charge.txt");
+    if os.path.isfile(charge_file):
+        data = np.genfromtxt(charge_file);
+
+        pl.plot(data[:,0], data[:,1])
+        pl.title(u"Charge")
+        pl.xlabel(u"Time")
+        pl.ylabel(u"Charge Ratio")
+        pl.grid(True)
+        pl.savefig("Charge.pdf")
+        pl.clf()
+
+    powernow_file = os.path.expanduser("~/.local/share/battery-health/powernow.txt");
+    if os.path.isfile(powernow_file):
+        data = np.genfromtxt(powernow_file);
+
+        pl.plot(data[:,0], data[:,1])
+        pl.title(u"Power Now")
+        pl.xlabel(u"Time")
+        pl.ylabel(u"Power in Watt")
+        pl.grid(True)
+        pl.savefig("Powernow.pdf")
+        pl.clf()
+
+    timeuntil_file = os.path.expanduser("~/.local/share/battery-health/timeuntil.txt");
+    if os.path.isfile(timeuntil_file):
+        data = np.genfromtxt(timeuntil_file);
+
+        pl.plot(data[:,0], data[:,1])
+        pl.title(u"Time Until")
+        pl.xlabel(u"Time")
+        pl.ylabel(u"Time until empty or charged")
+        pl.grid(True)
+        pl.savefig("timeuntil.pdf")
+        pl.clf()
+
+    timeleft_file = os.path.expanduser("~/.local/share/battery-health/timeleft.txt");
+    if os.path.isfile(timeleft_file):
+        data = np.genfromtxt(timeleft_file);
+
+        pl.plot(data[:,0], data[:,1])
+        pl.title(u"Time Left")
+        pl.xlabel(u"Time")
+        pl.ylabel(u"Time left to empty or charged")
+        pl.grid(True)
+        pl.savefig("timeleft.pdf")
+        pl.clf()
+
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    #parser.add_argument("args", metavar="N", type=str, nargs="*", help="Positional arguments.")
+    #parser.add_argument("", dest="", type="", default=, help=)
+    #parser.add_argument("--version", action="version", version="<the version>")
+
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main()
