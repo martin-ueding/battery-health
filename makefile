@@ -18,6 +18,11 @@ dep.makefile: $(c_files) $(h_files)
 	gcc -MM $(c_files) > $@
 	cat $@
 
+install:
+	install -d "$(DESTDIR)/usr/bin"
+	install battery-health -t "$(DESTDIR)/usr/bin"
+	install battery-health-plot -t "$(DESTDIR)/usr/bin"
+
 -include dep.makefile
 
 .PHONY: clean
