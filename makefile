@@ -2,7 +2,7 @@
 
 CC = g++
 CPPFLAGS = -O3 --pedantic -std=c++11 -Wall
-LDLIBS = -lboost_program_options
+LDLIBS = -lboost_filesystem -lboost_program_options -lboost_system
 
 c_files := $(wildcard *.cpp)
 h_files := $(wildcard *.hpp)

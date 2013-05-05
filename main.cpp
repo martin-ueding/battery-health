@@ -1,6 +1,7 @@
 // Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
 #include <boost/program_options.hpp>
+#include <boost/filesystem.hpp>
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
 
 	int time = std::time(NULL);
 
-	// TODO Create folder automatically.
+	boost::filesystem::create_directories(foldername);
 
 	std::ifstream in;
 
