@@ -20,6 +20,7 @@ po::variables_map parse_args(int argc, char **argv) {
 	try {
 		po::store(po::parse_command_line(argc, argv, desc), options);
 	}
+	// XXX Catch only the exception applicable to this context.
 	catch (...) {
 		std::cout << desc << std::endl;
 		throw;
