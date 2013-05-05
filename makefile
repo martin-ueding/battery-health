@@ -2,6 +2,7 @@
 
 CC = g++
 CPPFLAGS = -O3 --pedantic -std=c++11 -Wall
+LDLIBS = -lboost_program_options
 
 c_files := $(wildcard *.cpp)
 h_files := $(wildcard *.hpp)
@@ -10,7 +11,7 @@ o_files := $(c_files:.cpp=.o)
 all: battery-health
 
 battery-health: $(o_files)
-	$(CC) -o $@ $^
+	$(CC) -o $@ $^ $(LDLIBS)
 
 dep: dep.makefile
 

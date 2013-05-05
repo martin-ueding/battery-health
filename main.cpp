@@ -1,10 +1,38 @@
 // Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
+#include <boost/program_options.hpp>
 #include <ctime>
 #include <fstream>
 #include <iostream>
 
-int main() {
+namespace po = boost::program_options;
+
+po::variables_map parse_args(int argc, char **argv) {
+	std::string foldername = std::string(getenv("HOME")) + std::string("/.local/share/battery-health");
+
+	po::options_description desc("Allowed Options");
+	desc.add_options()
+		("help", "Display help")
+		("folder", po::value<std::string>()->default_value(foldername), "Output folder")
+		;
+
+	po::variables_map options;
+	po::store(po::parse_command_line(argc, argv, desc), options);
+	po::notify(options);
+
+	if (options.count("help")) {
+		std::cout << desc << std::endl;
+	}
+
+	return options;
+}
+
+int main(int argc, char **argv) {
+	po::variables_map options = parse_args(argc, argv);
+
+	std::string foldername = options["folder"].as<std::string>();
+	std::cout << foldername << std::endl;
+
 	int energy_now;
 	int energy_full;
 	int energy_full_design;
@@ -13,8 +41,6 @@ int main() {
 	int time = std::time(NULL);
 
 	// TODO Create folder automatically.
-
-	std::string foldername = std::string(getenv("HOME")) + std::string("/.local/share/battery-health");
 
 	std::ifstream in;
 
