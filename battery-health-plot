@@ -13,12 +13,17 @@ __docformat__ = "restructuredtext en"
 def main():
     options = _parse_args()
 
+    plotopts = {
+        "linestyle": "none",
+        "marker": ".",
+    }
+
     charge_file = os.path.expanduser("~/.local/share/battery-health/charge.txt");
     if os.path.isfile(charge_file):
         data = np.genfromtxt(charge_file);
 
-        pl.plot(data[:,0], data[:,1], label=u"Current charge")
-        pl.plot(data[:,0], data[:,2], label=u"Maximum charge")
+        pl.plot(data[:,0], data[:,1], label=u"Current charge", **plotopts)
+        pl.plot(data[:,0], data[:,2], label=u"Maximum charge", **plotopts)
         pl.title(u"Charge")
         pl.xlabel(u"Time")
         pl.ylabel(u"Charge Ratio")
@@ -31,7 +36,7 @@ def main():
     if os.path.isfile(powernow_file):
         data = np.genfromtxt(powernow_file);
 
-        pl.plot(data[:,0], data[:,1])
+        pl.plot(data[:,0], data[:,1], **plotopts)
         pl.title(u"Power Now")
         pl.xlabel(u"Time")
         pl.ylabel(u"Power in Watt")
@@ -43,7 +48,7 @@ def main():
     if os.path.isfile(timeuntil_file):
         data = np.genfromtxt(timeuntil_file);
 
-        pl.plot(data[:,0], data[:,1])
+        pl.plot(data[:,0], data[:,1], **plotopts)
         pl.title(u"Time Until")
         pl.xlabel(u"Time")
         pl.ylabel(u"Time until empty or charged")
@@ -55,7 +60,7 @@ def main():
     if os.path.isfile(timeleft_file):
         data = np.genfromtxt(timeleft_file);
 
-        pl.plot(data[:,0], data[:,1])
+        pl.plot(data[:,0], data[:,1], **plotopts)
         pl.title(u"Time Left")
         pl.xlabel(u"Time")
         pl.ylabel(u"Time left to empty or charged")
