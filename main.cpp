@@ -17,12 +17,15 @@ po::variables_map parse_args(int argc, char **argv) {
 		;
 
 	po::variables_map options;
-	po::store(po::parse_command_line(argc, argv, desc), options);
+	try {
+		po::store(po::parse_command_line(argc, argv, desc), options);
+	}
+	catch (...) {
+		std::cout << desc << std::endl;
+		throw;
+	}
 	po::notify(options);
 
-	if (options.count("help")) {
-		std::cout << desc << std::endl;
-	}
 
 	return options;
 }
