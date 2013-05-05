@@ -26,6 +26,8 @@ install:
 
 -include dep.makefile
 
+distclean: clean
+
 .PHONY: clean
 clean:
 	$(RM) *.o *.out
