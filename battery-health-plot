@@ -22,8 +22,10 @@ def main():
     if os.path.isfile(charge_file):
         data = np.genfromtxt(charge_file);
 
-        pl.plot(data[:,0], data[:,1], label=u"Current charge", **plotopts)
-        pl.plot(data[:,0], data[:,2], label=u"Maximum charge", **plotopts)
+        filtered = np.array([(x, y, z) for x, y, z in data if 0 <= y <= 1])
+
+        pl.plot(filtered[:,0], filtered[:,1], label=u"Current charge", **plotopts)
+        pl.plot(filtered[:,0], filtered[:,2], label=u"Maximum charge", **plotopts)
         pl.title(u"Charge")
         pl.xlabel(u"Time")
         pl.ylabel(u"Charge Ratio")
@@ -36,7 +38,10 @@ def main():
     if os.path.isfile(powernow_file):
         data = np.genfromtxt(powernow_file);
 
-        pl.plot(data[:,0], data[:,1], **plotopts)
+
+        filtered = np.array([(x, y) for x, y in data if y > 0])
+
+        pl.plot(filtered[:,0], filtered[:,1], **plotopts)
         pl.title(u"Power Now")
         pl.xlabel(u"Time")
         pl.ylabel(u"Power in Watt")
