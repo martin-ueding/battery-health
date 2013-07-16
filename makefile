@@ -23,6 +23,7 @@ install:
 	install -d "$(DESTDIR)/usr/bin"
 	install battery-health -t "$(DESTDIR)/usr/bin"
 	install battery-health-plot -t "$(DESTDIR)/usr/bin"
+	install submit-battery-status -t "$(DESTDIR)/usr/bin"
 
 -include dep.makefile
 
