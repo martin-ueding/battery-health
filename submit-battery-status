@@ -4,8 +4,12 @@
 # Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
+import platform
+import urllib.request
 
 __docformat__ = "restructuredtext en"
+
+url = "http://martin-ueding.de/app/battery-health/submit.php?name={name}&charge={charge:.3f}"
 
 def get_current_charge():
     with open("/sys/class/power_supply/BAT0/charge_now") as f:
@@ -15,10 +19,14 @@ def get_current_charge():
 
     return charge_now / charge_full
 
+def submit_charge():
+    urllib.request.urlopen(url.format(name=platform.node, charge=get_current_charge()))
+
 def main():
     options = _parse_args()
 
     print(get_current_charge())
+    submit_charge()
 
 def _parse_args():
     """
