@@ -9,7 +9,7 @@ import urllib.request
 
 __docformat__ = "restructuredtext en"
 
-url = "http://martin-ueding.de/app/battery-health/submit.php?name={name}&charge={charge:.3f}"
+url = "http://martin-ueding.de/app/battery-health/submit.php?token={token}&charge={charge:.3f}"
 
 def get_current_charge():
     with open("/sys/class/power_supply/BAT0/charge_now") as f:
@@ -17,16 +17,15 @@ def get_current_charge():
     with open("/sys/class/power_supply/BAT0/charge_full") as f:
         charge_full = int(f.read())
 
-    return charge_now / charge_full
-
-def submit_charge():
-    urllib.request.urlopen(url.format(name=platform.node, charge=get_current_charge()))
+    return charge_now / charge_full * 100
 
 def main():
     options = _parse_args()
 
     print(get_current_charge())
-    submit_charge()
+    query = url.format(token=options.token[0], charge=get_current_charge())
+    print(query)
+    urllib.request.urlopen(query)
 
 def _parse_args():
     """
@@ -36,7 +35,7 @@ def _parse_args():
     :rtype: Namespace
     """
     parser = argparse.ArgumentParser(description="")
-    #parser.add_argument("args", metavar="N", type=str, nargs="*", help="Positional arguments.")
+    parser.add_argument("token", metavar="token", type=str, nargs=1, help="Positional arguments.")
     #parser.add_argument("", dest="", type="", default=, help=)
     #parser.add_argument("--version", action="version", version="<the version>")
 

@@ -1,3 +1,4 @@
 *.o
 battery-health
 dep.makefile
+devices.js
