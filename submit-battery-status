@@ -1,0 +1,39 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+
+__docformat__ = "restructuredtext en"
+
+def get_current_charge():
+    with open("/sys/class/power_supply/BAT0/charge_now") as f:
+        charge_now = int(f.read())
+    with open("/sys/class/power_supply/BAT0/charge_full") as f:
+        charge_full = int(f.read())
+
+    return charge_now / charge_full
+
+def main():
+    options = _parse_args()
+
+    print(get_current_charge())
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    #parser.add_argument("args", metavar="N", type=str, nargs="*", help="Positional arguments.")
+    #parser.add_argument("", dest="", type="", default=, help=)
+    #parser.add_argument("--version", action="version", version="<the version>")
+
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main()
