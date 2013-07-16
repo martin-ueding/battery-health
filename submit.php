@@ -16,7 +16,6 @@ for ($i = 0; $i < count($devices); $i++) {
 	if ($devices[$i]['token'] == $token) {
 		$devices[$i]['charge'] = $charge;
 	}
-	echo $devices[$i]['name'].': '.$devices[$i]['charge'].'<br />';
 }
 
 # Write data.
@@ -28,3 +27,33 @@ if ($h === false) {
 fwrite($h, $encoded);
 fclose($h);
 ?>
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Battery Status</title>
+		<style type="text/css">
+td.charge {
+text-align: right;
+}
+</style>
+	</head>
+	<body>
+<table>
+<tr>
+<th>Gerät</th>
+<th>Ladestand</th>
+</tr>
+<?php for ($i = 0; $i < count($devices); $i++): ?>
+<tr>
+<td>
+<?= $devices[$i]['name'] ?>
+</td>
+<td class="charge">
+<?= round($devices[$i]['charge']) ?>
+</td>
+</tr>
+<?php endfor; ?>
+</table>
+	</body>
+</html>
