@@ -15,6 +15,7 @@ if (file_exists($datafile)) {
 for ($i = 0; $i < count($devices); $i++) {
 	if ($devices[$i]['token'] == $token) {
 		$devices[$i]['charge'] = $charge;
+		$devices[$i]['time'] = time();
 	}
 }
 
@@ -33,8 +34,11 @@ fclose($h);
 		<meta charset="UTF-8" />
 		<title>Battery Status</title>
 		<style type="text/css">
-td.charge {
+td.number {
 text-align: right;
+}
+td, th {
+padding: 2px 15px;
 }
 </style>
 	</head>
@@ -43,14 +47,22 @@ text-align: right;
 <tr>
 <th>Gerät</th>
 <th>Ladestand</th>
+<th>Aktualisierungszeitpunkt</th>
+<th>Aktualisierung vor / Minuten</th>
 </tr>
 <?php for ($i = 0; $i < count($devices); $i++): ?>
 <tr>
 <td>
 <?= $devices[$i]['name'] ?>
 </td>
-<td class="charge">
+<td class="number">
 <?= round($devices[$i]['charge']) ?>
+</td>
+<td>
+<?= date("Y-m-d H:i:s", $devices[$i]['time']) ?>
+</td>
+<td class="number">
+<?= round((time() - $devices[$i]['time'])/60) ?>
 </td>
 </tr>
 <?php endfor; ?>
