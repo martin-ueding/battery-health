@@ -12,11 +12,7 @@ po::variables_map parse_args(int argc, char **argv) {
 	std::string foldername = std::string(getenv("HOME")) + std::string("/.local/share/battery-health");
 
 	po::options_description desc("Allowed Options");
-	desc.add_options()
-		("help", "Display help")
-		("folder", po::value<std::string>()->default_value(foldername), "Output folder")
-		;
-
+	desc.add_options()("help", "Display help")("folder", po::value<std::string>()->default_value(foldername), "Output folder") ;
 	po::variables_map options;
 	try {
 		po::store(po::parse_command_line(argc, argv, desc), options);
@@ -72,19 +68,19 @@ int main(int argc, char **argv) {
 
 	std::ofstream out;
 
-	out.open(foldername+"/charge.txt", std::fstream::app);
+	out.open(foldername + "/charge.txt", std::fstream::app);
 	out << time << "\t" << charge << "\t" << max_charge << std::endl;
 	out.close();
 
-	out.open(foldername+"/timeleft.txt", std::fstream::app);
+	out.open(foldername + "/timeleft.txt", std::fstream::app);
 	out << time << "\t" << time_left << std::endl;
 	out.close();
 
-	out.open(foldername+"/powernow.txt", std::fstream::app);
+	out.open(foldername + "/powernow.txt", std::fstream::app);
 	out << time << "\t" << power_now / 1000000. << std::endl;
 	out.close();
 
-	out.open(foldername+"/timeuntil.txt", std::fstream::app);
+	out.open(foldername + "/timeuntil.txt", std::fstream::app);
 	out << time << "\t" << time_until << std::endl;
 	out.close();
 
