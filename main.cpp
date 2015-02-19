@@ -1,4 +1,4 @@
-// Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+// Copyright © 2013, 2015 Martin Ueding <dev@martin-ueding.de>
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
@@ -39,6 +39,7 @@ int main(int argc, char **argv) {
 	int energy_full_design;
 	int power_now;
 
+        // XXX Replace by C++11 Chrono.
 	int time = std::time(NULL);
 
 	boost::filesystem::create_directories(foldername);
